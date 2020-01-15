@@ -1,3 +1,5 @@
+'use strict'
+
 let todolist = getSavedTodos()
 const filters = {
     searchText: '',

@@ -1,6 +1,10 @@
 function hej (score, max) {
-    const grade
-    let percent = score / max * 100
+    if (typeof score !== 'number' || typeof max !== 'number'){
+        throw Error('inputs must be numbers!')
+    }
+    
+    let grade = ''
+    const percent = score / max * 100
 
     if (percent >= 90) {
         grade = 'A'
@@ -17,5 +21,8 @@ function hej (score, max) {
     return `${score}/${max} -> You got a ${grade} (${percent}%)!`
 }
 
-
-console.log(hej(13, 20))
+try {
+    console.log(hej(13, 20))
+} catch (e){
+    console.log(e.message)
+}

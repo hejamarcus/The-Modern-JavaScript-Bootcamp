@@ -1,8 +1,11 @@
+'use strict'
+
 const getSavedTodos = () => {
     const todosJson = localStorage.getItem('todos')
-    if (todosJson !== null){
-        return JSON.parse(todosJson)
-    } else {
+
+    try {
+        return todosJson ? JSON.parse(todosJson) : []
+    } catch (e) {
         return []
     }
 }
@@ -19,7 +22,7 @@ const removeTodo = (id) => {
 const toggleTodo = function (id) {
     const todo = todolist.find((todo) => todo.id === id )
 
-    if (todo !== undefined){
+    if (todo){
         todo.completed = !todo.completed
     }
 }

@@ -1,9 +1,4 @@
-const add = () => 
 
-
-
-
-add(11, 22, 33, 44)
 
 
 const car = {
