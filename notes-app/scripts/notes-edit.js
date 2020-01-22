@@ -16,14 +16,15 @@ titleElement.value = note.title
 bodyElement.value = note.body
 dateElement.textContent = generateLastEdited(note.updatedAt)
 
-titleElement.addEventListener('input', () => {
+titleElement.addEventListener('input', function() {
     note.title = this.value
+    console.log(this.value)
     note.updatedAt = moment().valueOf()
     dateElement.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
-bodyElement.addEventListener('input', () => {
+bodyElement.addEventListener('input', function() {
     note.body = this.value
     note.updatedAt = moment().valueOf()
     dateElement.textContent = generateLastEdited(note.updatedAt)

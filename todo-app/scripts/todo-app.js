@@ -14,15 +14,18 @@ document.querySelector('#search-text').addEventListener('input', (e) => {
 })
 
 document.querySelector('#add-todo-form').addEventListener('submit', (e) => {
+    const text = e.target.elements.todoText.value.trim()
     e.preventDefault()
-    todolist.push({
-        id: uuidv4(),
-        text: e.target.elements.todoText.value,
-        completed: false
-    })
-    saveTodos(todolist)
-    e.target.elements.todoText.value = ''
-    renderTodos(todolist, filters)
+    if (text.length > 0) {
+        todolist.push({
+            id: uuidv4(),
+            text,
+            completed: false
+        })
+        saveTodos(todolist)
+        e.target.elements.todoText.value = ''
+        renderTodos(todolist, filters)
+    }
 })
 
 document.querySelector('#hide-completed').addEventListener('change', (e) => {

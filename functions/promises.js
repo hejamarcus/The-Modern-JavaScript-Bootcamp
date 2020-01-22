@@ -6,24 +6,33 @@ const getDataCallback = (callback) => {
 }
 
 getDataCallback((err, data) => {
-   if (err) {
+    if (err) {
 
-   } else {
-       console.log(data)
-   }
+    } else {
+        console.log(data)
+    }
 })
 
 
 //promise
-const myPromise = new Promise((resolve, reject) => {
+const getDataPromise = (num) => new Promise((resolve, reject) => {
     setTimeout(() => {
-        //resolve('asdgfef')
-        reject('dfsffhea')
+        typeof num === 'number' ? resolve(num * 2) : reject('not a number')
     }, 2000)
 })
 
-myPromise.then((data) => {
-    console.log(data)
+
+getDataPromise(2).then((data) => {
+    getDataPromise(data)
 }, (err) => {
+    console.log(err)
+})
+
+/////
+getDataPromise(10).then((data) => {
+    return getDataPromise(data)
+}).then((data) => {
+    console.log(data)
+}).catch((err) => {
     console.log(err)
 })
