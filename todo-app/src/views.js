@@ -1,35 +1,10 @@
-'use strict'
+import { getTodos, toggleTodo, removeTodo } from './todos'
+import { getFilters } from './filters'
 
-const getSavedTodos = () => {
-    const todosJson = localStorage.getItem('todos')
-
-    try {
-        return todosJson ? JSON.parse(todosJson) : []
-    } catch (e) {
-        return []
-    }
-}
-
-const saveTodos = (todolist) =>{
-    localStorage.setItem('todos', JSON.stringify(todolist))
-}
-
-const removeTodo = (id) => {
-    const todoIndex = todolist.findIndex((todo) => todo.id === id)
-    todolist.splice(todoIndex, 1)
-}
-
-const toggleTodo = function (id) {
-    const todo = todolist.find((todo) => todo.id === id )
-
-    if (todo){
-        todo.completed = !todo.completed
-    }
-}
-
-const renderTodos = (todolist, filters) => {
+const renderTodos = () => {
     const todoEl = document.querySelector('#todos')
-    const filteredTodos = todolist.filter((todo) => {
+    const filters = getFilters()
+    const filteredTodos = getTodos().filter((todo) => {
         if (filters.hideCompleted) {
             return todo.text.toLowerCase().includes(filters.searchText.toLowerCase()) && todo.completed === false
         } else {
@@ -66,8 +41,7 @@ const generateTodoDOM = (todo) => {
     containerEl.appendChild(checkbox)
     checkbox.addEventListener('change', () => {
         toggleTodo(todo.id)
-        saveTodos(todolist)
-        renderTodos(todolist, filters)
+        renderTodos()
     })
 
     todoText.textContent = todo.text
@@ -82,8 +56,7 @@ const generateTodoDOM = (todo) => {
     todoEl.appendChild(deleteButton)
     deleteButton.addEventListener('click', () => {
         removeTodo(todo.id)
-        saveTodos(todolist)
-        renderTodos(todolist, filters)
+        renderTodos()
     })
 
     return todoEl
@@ -96,3 +69,5 @@ const generateSummaryDOM = (incompleteTodos) => {
     summary.textContent = `You have ${incompleteTodos.length} todo${plural} left`
     return summary
 }
+
+export { generateSummaryDOM, generateTodoDOM, renderTodos }
